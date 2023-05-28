@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_new
+
 class CharactersModel {
   Info? info;
   List<Results>? results;
@@ -15,7 +17,7 @@ class CharactersModel {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     if (info != null) {
       data['info'] = info!.toJson();
     }
@@ -42,7 +44,7 @@ class Info {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['count'] = count;
     data['pages'] = pages;
     data['next'] = next;
@@ -97,7 +99,7 @@ class Results {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['id'] = id;
     data['name'] = name;
     data['status'] = status;
@@ -130,7 +132,7 @@ class Origin {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
     data['name'] = name;
     data['url'] = url;
     return data;
