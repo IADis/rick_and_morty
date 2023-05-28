@@ -19,7 +19,7 @@ class SearchBarCharacters extends StatelessWidget {
           color: AppColors.nameColor,
         ),
         contentPadding: const EdgeInsets.all(20),
-        fillColor: Colors.amber,
+        fillColor: Colors.transparent,
         filled: true,
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(15),
