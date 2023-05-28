@@ -22,11 +22,12 @@ class CharactersCubit extends Cubit<CharactersStates> {
       if (e is DioError) {
         if (e.type == DioErrorType.unknown) {
           log('There is no internet connection');
+          if (e.response?.statusCode == 404) {
+            log('Not');
+          }
         }
       }
-      // if (e is DioError) {
-      //   print(e.response?.statusCode.toString() ?? '500');
-      // }
+
       emit(ErrorState());
     }
   }
