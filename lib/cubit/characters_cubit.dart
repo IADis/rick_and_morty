@@ -1,6 +1,3 @@
-import 'dart:developer';
-import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rickandmorty/model/characters_model.dart';
@@ -21,14 +18,13 @@ class CharactersCubit extends Cubit<CharactersStates> {
     } catch (e) {
       if (e is DioError) {
         if (e.type == DioErrorType.unknown) {
-          log('There is no internet connection');
-          if (e.response?.statusCode == 404) {
-            log('Not');
-          }
+          emit(ErrorState(errorMessage: 'There is no internet connection'));
+        }
+        if (e.response?.statusCode == 404) {
+          emit(ErrorState(
+              errorMessage: 'A character with that name was not found.'));
         }
       }
-
-      emit(ErrorState());
     }
   }
 }
@@ -44,4 +40,7 @@ class SuccessState extends CharactersStates {
   final CharactersModel characters;
 }
 
-class ErrorState extends CharactersStates {}
+class ErrorState extends CharactersStates {
+  ErrorState({required this.errorMessage});
+  final String errorMessage;
+}
