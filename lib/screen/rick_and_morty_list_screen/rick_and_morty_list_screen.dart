@@ -4,6 +4,7 @@ import 'package:rickandmorty/cubit/characters_cubit.dart';
 import 'package:rickandmorty/screen/rick_and_morty_list_screen/widgets/character_not_found.dart';
 import 'widgets/characters_list_view.dart';
 import 'widgets/header.dart';
+import 'widgets/searchbar_characters.dart';
 
 class RickAndMortyListScreen extends StatelessWidget {
   const RickAndMortyListScreen({super.key});
@@ -22,10 +23,10 @@ class RickAndMortyListScreen extends StatelessWidget {
             const SizedBox(height: 30),
             const Header(),
             const SizedBox(height: 20),
-            SearchBar(onChanged: (name) {
+            const SizedBox(height: 1),
+            SearchBarCharacters(onChanged: (name) {
               BlocProvider.of<CharactersCubit>(context).getCharacters(name);
             }),
-            const SizedBox(height: 1),
             BlocBuilder<CharactersCubit, CharactersStates>(
               builder: (context, state) {
                 if (state is LoadingState) {
