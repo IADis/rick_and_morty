@@ -5,6 +5,9 @@ class CharactersRepository {
   final Dio dio;
 
   Future<Response> getCharacters(String? name) async {
-    return await dio.get('character', queryParameters: {'name': name});
+    return await dio.get(
+      'character',
+      queryParameters: {'name': name},
+    );
   }
 }
