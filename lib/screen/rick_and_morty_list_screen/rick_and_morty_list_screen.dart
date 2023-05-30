@@ -29,27 +29,34 @@ class RickAndMortyListScreen extends StatelessWidget {
             }),
             BlocBuilder<CharactersCubit, CharactersStates>(
               builder: (context, state) {
-                if (state is LoadingState) {
-                  return const CircularProgressIndicator();
-                }
-                if (state is SuccessState) {
-                  return Expanded(
-                    child: ListView.separated(
-                      padding: const EdgeInsets.only(top: 20),
-                      shrinkWrap: true,
-                      separatorBuilder: (context, index) =>
-                          const SizedBox(height: 20),
-                      itemCount: state.characters.results!.length,
-                      itemBuilder: (context, index) => CharactersListView(
-                        character: state.characters.results![index],
-                      ),
-                    ),
-                  );
-                }
                 if (state is ErrorState) {
                   return const CharacterNotFound();
                 }
-                return const CircularProgressIndicator();
+                return state.characters.isNotEmpty
+                    ? Expanded(
+                        child: NotificationListener(
+                          onNotification: (ScrollNotification notification) {
+                            final current = notification.metrics.pixels + 100;
+                            final max = notification.metrics.maxScrollExtent;
+                            if (current >= max) {
+                              BlocProvider.of<CharactersCubit>(context)
+                                  .getCharacters('');
+                            }
+                            return false;
+                          },
+                          child: ListView.separated(
+                            padding: const EdgeInsets.only(top: 20),
+                            shrinkWrap: true,
+                            separatorBuilder: (context, index) =>
+                                const SizedBox(height: 20),
+                            itemCount: state.characters.length,
+                            itemBuilder: (context, index) => CharactersListView(
+                              character: state.characters[index],
+                            ),
+                          ),
+                        ),
+                      )
+                    : const Center(child: CircularProgressIndicator());
               },
             ),
           ],

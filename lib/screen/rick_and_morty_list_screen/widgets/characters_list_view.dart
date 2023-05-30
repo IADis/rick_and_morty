@@ -6,7 +6,7 @@ import 'package:rickandmorty/model/characters_model.dart';
 class CharactersListView extends StatefulWidget {
   const CharactersListView({super.key, required this.character});
 
-  final Results character;
+  final CharacterModel character;
 
   @override
   State<CharactersListView> createState() => _CharactersListViewState();

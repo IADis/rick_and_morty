@@ -1,17 +1,17 @@
 // ignore_for_file: unnecessary_new
 
-class CharactersModel {
+class CharactersInfoModel {
   Info? info;
-  List<Results>? results;
+  List<CharacterModel>? results;
 
-  CharactersModel({this.info, this.results});
+  CharactersInfoModel({this.info, this.results});
 
-  CharactersModel.fromJson(Map<String, dynamic> json) {
+  CharactersInfoModel.fromJson(Map<String, dynamic> json) {
     info = json['info'] != null ? Info.fromJson(json['info']) : null;
     if (json['results'] != null) {
-      results = <Results>[];
+      results = <CharacterModel>[];
       json['results'].forEach((v) {
-        results!.add(Results.fromJson(v));
+        results!.add(CharacterModel.fromJson(v));
       });
     }
   }
@@ -26,21 +26,23 @@ class CharactersModel {
     }
     return data;
   }
+
+  void add(CharactersInfoModel characters) {}
 }
 
 class Info {
   int? count;
   int? pages;
   String? next;
-  int? prev;
+  String? prev;
 
   Info({this.count, this.pages, this.next, this.prev});
 
   Info.fromJson(Map<String, dynamic> json) {
     count = json['count'];
     pages = json['pages'];
-    next = json['next'];
-    prev = json['prev'];
+    next = json['next'].toString();
+    prev = json['prev'].toString();
   }
 
   Map<String, dynamic> toJson() {
@@ -53,7 +55,7 @@ class Info {
   }
 }
 
-class Results {
+class CharacterModel {
   int? id;
   String? name;
   String? status;
@@ -67,7 +69,7 @@ class Results {
   String? url;
   String? created;
 
-  Results(
+  CharacterModel(
       {this.id,
       this.name,
       this.status,
@@ -81,7 +83,7 @@ class Results {
       this.url,
       this.created});
 
-  Results.fromJson(Map<String, dynamic> json) {
+  CharacterModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     name = json['name'];
     status = json['status'];
