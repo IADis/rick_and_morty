@@ -7,10 +7,13 @@ import 'widgets/header.dart';
 import 'widgets/searchbar_characters.dart';
 
 class RickAndMortyListScreen extends StatelessWidget {
-  const RickAndMortyListScreen({super.key});
+  const RickAndMortyListScreen({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
+    String? name;
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.only(
@@ -25,7 +28,8 @@ class RickAndMortyListScreen extends StatelessWidget {
             const SizedBox(height: 20),
             const SizedBox(height: 1),
             SearchBarCharacters(onChanged: (name) {
-              BlocProvider.of<CharactersCubit>(context).getCharacters(name);
+              BlocProvider.of<CharactersCubit>(context)
+                  .getCharactersByName(name);
             }),
             BlocBuilder<CharactersCubit, CharactersStates>(
               builder: (context, state) {
@@ -40,7 +44,7 @@ class RickAndMortyListScreen extends StatelessWidget {
                             final max = notification.metrics.maxScrollExtent;
                             if (current >= max) {
                               BlocProvider.of<CharactersCubit>(context)
-                                  .getCharacters('');
+                                  .getCharacters();
                             }
                             return false;
                           },

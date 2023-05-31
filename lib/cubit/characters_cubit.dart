@@ -11,24 +11,52 @@ class CharactersCubit extends Cubit<CharactersStates> {
 
   final CharactersRepository charactersRepository;
 
-  int currenPage = 1;
+  int currenPage = 0;
   int maxPage = 1;
   List<CharacterModel> characters = [];
 
-  getCharacters(String name) async {
+  getCharacters() async {
     emit(LoadingState(characters: state.characters));
 
     try {
       if (currenPage < maxPage) {
         final response = await charactersRepository.getCharacters(
-          name: name,
           currentPage: currenPage,
         );
         final CharactersInfoModel character =
             CharactersInfoModel.fromJson(response.data);
-        characters.addAll(character.results!);
+        characters = [...state.characters, ...character.results!];
         maxPage = character.info?.pages ?? 1;
         currenPage++;
+        emit(SuccessState(characters: characters));
+      }
+    } catch (e) {
+      if (e is DioError) {
+        if (e.type == DioErrorType.unknown) {
+          emit(ErrorState(
+              errorMessage: 'There is no internet connection', characters: []));
+        }
+        if (e.response?.statusCode == 404) {
+          emit(ErrorState(
+              errorMessage: 'A character with that name was not found.',
+              characters: []));
+        }
+      }
+    }
+  }
+
+  getCharactersByName(String name) async {
+    emit(LoadingState(characters: state.characters));
+
+    try {
+      if (name.isNotEmpty) {
+        final response = await charactersRepository.getCharacters(
+          name: name,
+        );
+        final CharactersInfoModel character =
+            CharactersInfoModel.fromJson(response.data);
+        characters = character.results!;
+
         emit(SuccessState(characters: characters));
       }
     } catch (e) {

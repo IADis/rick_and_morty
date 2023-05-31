@@ -23,7 +23,7 @@ class RickAndMorty extends StatelessWidget {
         create: (context) => CharactersCubit(
             charactersRepository:
                 RepositoryProvider.of<CharactersRepository>(context))
-          ..getCharacters(''),
+          ..getCharacters(),
         child: MaterialApp(
           theme: theme,
           debugShowCheckedModeBanner: false,
