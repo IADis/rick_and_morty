@@ -47,7 +47,7 @@ class _RickAndMortyListScreenState extends State<RickAndMortyListScreen> {
                             final current = notification.metrics.pixels + 100;
                             final max = notification.metrics.maxScrollExtent;
                             if (current >= max) {
-                              if (name?.isEmpty ?? false) {
+                              if (name?.isEmpty ?? true) {
                                 BlocProvider.of<CharactersCubit>(context)
                                     .getCharacters();
                               }
