@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:rickandmorty/cubit/characters_cubit.dart';
-import 'package:rickandmorty/model/characters_model.dart';
 import 'package:rickandmorty/screen/rick_and_morty_list_screen/widgets/character_not_found.dart';
 import 'widgets/characters_body.dart';
 import 'widgets/characters_list_count.dart';
-import 'widgets/characters_list_view.dart';
 import 'widgets/header.dart';
 import 'widgets/searchbar_characters.dart';
 
