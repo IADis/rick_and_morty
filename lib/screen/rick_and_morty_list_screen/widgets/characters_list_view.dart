@@ -28,49 +28,55 @@ class _CharactersListViewState extends State<CharactersListView> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        CachedNetworkImage(
-          imageUrl: widget.character.image ?? '',
-          imageBuilder: (context, imageProvider) => Container(
-            height: 100,
-            width: 100,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              image: DecorationImage(
-                image: imageProvider,
-                fit: BoxFit.cover,
+    return InkWell(
+      onTap: () => Navigator.of(context).pushNamed(
+        '/charactersScreen',
+        arguments: widget.character,
+      ),
+      child: Row(
+        children: [
+          CachedNetworkImage(
+            imageUrl: widget.character.image ?? '',
+            imageBuilder: (context, imageProvider) => Container(
+              height: 100,
+              width: 100,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                  image: imageProvider,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
+            placeholder: (context, url) => const CircularProgressIndicator(
+              color: Colors.amber,
+              backgroundColor: Colors.black,
+            ),
+            errorWidget: (context, url, error) => const Icon(Icons.error),
           ),
-          placeholder: (context, url) => const CircularProgressIndicator(
-            color: Colors.amber,
-            backgroundColor: Colors.black,
+          const SizedBox(width: 20),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                widget.character.status?.toUpperCase() ?? '',
+                style: TextStyle(
+                    color: changeColor(widget.character.status ?? '')),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                widget.character.name ?? '',
+                style: const TextStyle(color: AppColors.nameColor),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                '${widget.character.species}, ${widget.character.gender}',
+                style: const TextStyle(color: AppColors.genderColor),
+              ),
+            ],
           ),
-          errorWidget: (context, url, error) => const Icon(Icons.error),
-        ),
-        const SizedBox(width: 20),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              widget.character.status?.toUpperCase() ?? '',
-              style:
-                  TextStyle(color: changeColor(widget.character.status ?? '')),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              widget.character.name ?? '',
-              style: const TextStyle(color: AppColors.nameColor),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              '${widget.character.species}, ${widget.character.gender}',
-              style: const TextStyle(color: AppColors.genderColor),
-            ),
-          ],
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
