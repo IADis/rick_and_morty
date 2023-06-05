@@ -15,7 +15,7 @@ class RickAndMortyDetailScreen extends StatelessWidget {
           Center(
             child: Text(
               arguments.name.toString(),
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 40,
                 color: Colors.white,
               ),
@@ -23,14 +23,14 @@ class RickAndMortyDetailScreen extends StatelessWidget {
           ),
           Text(
             arguments.status.toString(),
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 40,
               color: Colors.white,
             ),
           ),
           Text(
             arguments.gender.toString(),
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 40,
               color: Colors.white,
             ),
